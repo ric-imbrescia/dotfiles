@@ -1,0 +1,129 @@
+[REINSTALL ARCH FROM PACKAGE LIST]
+#Before nuking the old install, save the list to a file. 
+$ pacman -Qqe > pkglist.txt
+#Get it back and use 
+$ pacman -S --needed - < pkglist.txt
+
+[GITHUB WITH SSH]
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# or (ed25519 and RSA with 4096-bit keys are equally safe, but ed is faster)
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+# start the ssh agent
+eval "$(ssh-agent -s)"
+
+# on github.com Profile_pic > Settings > SSH and GPG keys
+# paste the ~/.ssh/id_something.pub
+
+# test the connection 
+ssh -T git@github.com
+
+#you might see this; answer 'yes'
+> The authenticity of host 'github.com (IP ADDRESS)' can't be established.
+> RSA key fingerprint is SHA256:XxXxXxXxXxXxXxXxXxX.
+> Are you sure you want to continue connecting (yes/no)?
+
+# Reclone all your repos or 
+# change their URLs to git@github.com:your_user_name/your_project_name.git
+
+
+[TTY FONT (arch)]
+/etc/vconsole.conf ::
+FONT=ter-16n
+
+/etc/mkinitcpio.conf
+#place "consolefont" after the base hook
+
+# Reinstall or regenerate the kernel image
+
+
+[RANGER]
+##To add icon support
+Install NerdFonts
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+(remove .git directory etc if you are using git on your .config folder)
+(you only need the __init__.py and devicons.py files)
+"default_linemode devicons" in rc.conf
+Install "ttf-nerd-fonts-symbols" on ArchLinux
+
+[NAUTILUS]
+## Nautilus doesn't open gedit as a text editor
+Set "DBusActivatable=false" in /usr/share/applications/org.gnome.gedit.desktop
+## Use SMB by writing smb://server/folder (arch)
+Install "gvfs-smb" and it will work out of the box
+
+##SET GTK 3 THEME
+~/user/.config/gtk-3.0/settings.ini::
+
+[Settings]
+gtk-icon-theme-name = Arc
+gtk-theme-name = Arc-Dark
+gtk-font-name = Liberation Sans 12
+
+
+##SYSTEMD-NETWORKD
+#Simple wired connection for a desktop tower:
+
+/etc/systemd/network/wired.network ::
+[Match]
+Name=en*
+[Network]
+DHCP=yes
+
+/etc/resolv.conf ::
+#Google public DNS server
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844
+
+systemctl enable --now systemd-networkd
+
+
+[SYNOLOGY NAS USING SAMBA]
+#Install "samba" (archlinux)
+#Configure the nas from the web interface: user, pass, folder, permissions etc..
+#Start the service with 
+$ systemctl enable now samba.service
+
+#Create a credentials file (e.g .smbServer) in which you write::
+username=john
+password=doe1234
+#Referring to the user on the NAS
+#Chmod and chown it for safety, and place it somewhere safe (e.g. the root's home)
+
+#Add a line like this in the /etc/fstab::
+//192.168.1.100/CONDIVISA   /mnt/nas    cifs    nofail,credentials=/root/.smbServer,uid=1000    0 0
+# {//<nas-ip>/folder}     {mount point}  {fs type}      {options, see below}                  {pass dump}
+
+# CIFS is the old name for the SMB implementation for UNIX
+# nofail: the system won't panic if it can't connect to the drive, usefull for a laptop
+# credentials=/path/to/creds-file: Path to the credentials file
+# uid=1000: The uid of your user in the local machine that connects the NAS
+
+#or
+//192.168.1.100/CONDIVISA   /mnt/nas    cifs    nofail,guest,uid=1000    0 0
+//nas/CONDIVISA				/mnt/nas	cifs	nofail,guest,uid=1000	0 0
+#if you want to use it as guest.
+#You can also use a Windows UNC style server name instead of the IP.
+#As you might think, it's better to give the NAS a static local IP.
+#Reboot and you are done.
+
+#or even
+sudo mount.cifs //nas/CONDIVISA /mnt/nas -o uid=1000,guest
+# for a quick, windows-like \\name connection
+
+[APPLE KEYBOARD TWEAKS]
+## If you use an iso apple keyboard, <,> have changed place with ^,°  @,#  `,~
+## Do this as root to fix it and regenerate the initramfs:
+echo "0" > /sys/module/hid_apple/parameters/iso_layout
+echo "options hid_apple iso_layout=0" >> /etc/modprobe.d/hid_apple.conf
+
+## To convert the f13,f14,f15 keys to SysRQ,SLk,Pause and remove the navigation
+## layer in the keypad (NumLock/Clear won't do anything):
+xkb_options "apple:alupckeys,numpad:mac"
+
+## To use F<num> keys as regular PC keys instead of media keys
+echo 2 >> /sys/module/hid_apple/parameters/fnmode
+echo "options hid_apple fnmode=2" >> /etc/modprobe.d/hid_apple.conf
