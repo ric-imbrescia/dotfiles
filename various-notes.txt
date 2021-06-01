@@ -4,6 +4,9 @@ $ pacman -Qqe > pkglist.txt
 #Get it back and use 
 $ pacman -S --needed - < pkglist.txt
 
+
+
+
 [GITHUB WITH SSH]
 ssh-keygen -t ed25519 -C "your_email@example.com"
 
@@ -28,6 +31,8 @@ ssh -T git@github.com
 # change their URLs to git@github.com:your_user_name/your_project_name.git
 
 
+
+
 [TTY FONT (arch)]
 /etc/vconsole.conf ::
 FONT=ter-16n
@@ -38,28 +43,6 @@ FONT=ter-16n
 # Reinstall or regenerate the kernel image
 
 
-[RANGER]
-##To add icon support
-Install NerdFonts
-git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-(remove .git directory etc if you are using git on your .config folder)
-(you only need the __init__.py and devicons.py files)
-"default_linemode devicons" in rc.conf
-Install "ttf-nerd-fonts-symbols" on ArchLinux
-
-[NAUTILUS]
-## Nautilus doesn't open gedit as a text editor
-Set "DBusActivatable=false" in /usr/share/applications/org.gnome.gedit.desktop
-## Use SMB by writing smb://server/folder (arch)
-Install "gvfs-smb" and it will work out of the box
-
-##SET GTK 3 THEME
-~/user/.config/gtk-3.0/settings.ini::
-
-[Settings]
-gtk-icon-theme-name = Arc
-gtk-theme-name = Arc-Dark
-gtk-font-name = Liberation Sans 12
 
 
 ##SYSTEMD-NETWORKD
@@ -79,6 +62,8 @@ nameserver 2001:4860:4860::8888
 nameserver 2001:4860:4860::8844
 
 systemctl enable --now systemd-networkd
+
+
 
 
 [SYNOLOGY NAS USING SAMBA]
@@ -113,6 +98,9 @@ password=doe1234
 #or even
 sudo mount.cifs //nas/CONDIVISA /mnt/nas -o uid=1000,guest
 # for a quick, windows-like \\name connection
+
+
+
 
 [APPLE KEYBOARD TWEAKS]
 ## If you use an iso apple keyboard, <,> have changed place with ^,°  @,#  `,~
