@@ -17,6 +17,3 @@ _comp_options+=(globdots)   # Include hidden files.
 # ZSH HISTORY IN CACHE DIRECTORY:
 SAVEHIST=10000
 HISTFILE=~/.cache/.zhistory
-
-# ZSH PLUGINS, ALWAYS LAST
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
