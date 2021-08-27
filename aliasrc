@@ -8,7 +8,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-LESSHISTFILE=/dev/null
+export LESSHISTFILE=/dev/null
 
 # DIRECTORY NAVIGATION ALIASES
 alias b='cd ..'
@@ -19,10 +19,21 @@ alias lt='ls -lhAt --time-style=long-iso --color=auto'
 alias poweroff='sudo poweroff'
 alias reboot='sudo reboot'
 
-# ARCH LINUX PACMAN
-#alias pmi='sudo pacman -S'   # search & install
-#alias pms='sudo pacman -Ss'   # search & install
-#alias pmr='sudo pacman -Rns' #search & remove
-#alias pmc='sudo pacman -Scc' #clean cache
-#alias pmk='sudo pacman-key --refresh-keys' #refresh dev keys
-#alias pmu='echo -e "\e[1;34m::\e[m\e[1m Ranking mirrors...\e[m"; sudo reflector --verbose -l 2 -f 2 --sort rate -p https --download-timeout 60 --save /etc/pacman.d/mirrorlis ; pm -Syu'
+
+# PACKAGE MANAGERS
+if [[ -f "/usr/bin/pacman" ]]; then
+    alias pmi='sudo pacman -S'    # install
+    alias pms='sudo pacman -Ss'   # search
+    alias pmr='sudo pacman -Rns'  # unistall
+    alias pmc='sudo pacman -Scc'  # clean cache
+    alias pmk='sudo pacman-key --refresh-keys' # refresh dev keys
+    alias pmu='echo -e "\e[1;34m::\e[m\e[1m Ranking mirrors...\e[m"; sudo reflector --verbose -l 2 -f 2 --sort rate -p https --download-timeout 60 --save /etc/pacman.d/mirrorlis ; pm -Syu'
+fi
+
+if [[ -f "/usr/bin/apt" ]]; then
+    alias pmi='sudo apt install'    # search & install
+    alias pms='sudo apt search'     # search & install
+    alias pmr='sudo apt autoremove' # search & remove
+    alias pmu='sudo apt update && sudo apt upgrade' # update
+fi
+
