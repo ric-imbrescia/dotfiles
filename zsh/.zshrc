@@ -1,5 +1,5 @@
 # ZSH PROMPT
-PS1='%F{6}%n@%m %f%B%F{5}%~%f%b '
+PS1='%F{6}%n@%m:%f%B%F{5}%~%f%b%F{5}>%f '
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
