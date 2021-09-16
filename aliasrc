@@ -21,6 +21,8 @@ alias reboot='sudo reboot'
 
 
 # PACKAGE MANAGERS
+
+    ## Arch based ##
 if [[ -f "/usr/bin/pacman" ]]; then
     alias pmi='sudo pacman -S'    # install
     alias pms='sudo pacman -Ss'   # search
@@ -30,10 +32,11 @@ if [[ -f "/usr/bin/pacman" ]]; then
     alias pmu='echo -e "\e[1;34m::\e[m\e[1m Ranking mirrors...\e[m"; sudo reflector --verbose -l 2 -f 2 --sort rate -p https --download-timeout 60 --save /etc/pacman.d/mirrorlis ; pm -Syu'
 fi
 
+    ## Debian/apt based ##
 if [[ -f "/usr/bin/apt" ]]; then
-    alias pmi='sudo apt install'    # search & install
-    alias pms='sudo apt search'     # search & install
-    alias pmr='sudo apt autoremove' # search & remove
+    alias pmi='sudo apt install'    # install
+    alias pms='sudo apt search'     # search
+    alias pmr='sudo apt autoremove' # unistall
     alias pmu='sudo apt update && sudo apt upgrade' # update
 fi
 
