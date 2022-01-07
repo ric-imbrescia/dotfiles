@@ -40,3 +40,10 @@ if [[ -f "/usr/bin/apt" ]]; then
     alias pmu='sudo apt update && sudo apt upgrade' # update
 fi
 
+    ## Termux ##
+if [[ -f "/data/data/com.termux/files/usr/bin/pkg" ]]; then
+    alias pmi='pkg install'    # install
+    alias pms='pkg search'     # search
+    alias pmr='pkg unistall'   # unistall
+    alias pmu='pkg upgrade'    # update
+fi
