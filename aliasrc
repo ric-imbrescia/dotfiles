@@ -46,4 +46,5 @@ if [[ -f "/data/data/com.termux/files/usr/bin/pkg" ]]; then
     alias pms='pkg search'     # search
     alias pmr='pkg unistall'   # unistall
     alias pmu='pkg upgrade'    # update
+    alias pmc='pkg clean && pkg autoclean' #clean .deb cache
 fi
