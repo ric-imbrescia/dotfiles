@@ -1,0 +1,51 @@
+#BASICS
+include /usr/share/nano/*.nanorc
+set	linenumbers	# linenumbers
+set	nonewlines	# no newline at end
+set	autoindent	# autoindent
+set	tabsize 8	# tabsize
+set	multibuffer	# open files in new buffers by default
+set	quickblank	# cleans the statusline immediately
+set	mouse		# mouse support, we are in the 3rd millennium
+set	zap		# selected text is deleted with DEL an BKS
+set	guidestripe 81	# chars in the 81st column are highlighted
+set	indicator	# shows a GUI-like scrollbar
+#COLORS
+set	numbercolor	bold,yellow
+set	titlecolor	bold,italic,blue
+set	statuscolor	black,green
+set	keycolor	blue
+set	stripecolor 	bold,magenta
+set	functioncolor	italic,white
+set	scrollercolor	blue
+#MOVEMENT
+bind	^G	gotoline 	main
+bind	^\	findbracket	main
+# the rest is by default CUA standard
+#EDITING FOR HUMANS
+bind	^S	savefile	main	# save
+bind	^W	writeout	main	# just because ctrl+shift+S cannot be used
+bind	^O	insert		main	# open
+bind	^Q	exit		main	# exit from curent buffer
+bind	^V	paste		main	# paste
+bind	^C	copy		main	# copy
+bind	^D	zap 		main	# delete line or selected, separated from cut
+bind	^X	cut 		main	# cut
+bind	^Z	undo		main	# undo
+bind	M-Z	undo		main	# undo in the tty (sees ^Z as suspend)
+bind	^Y	redo 		main	# redo
+bind	^Space	mark		main	# select mode
+#FIND AND REPLACE
+bind	^R	replace 	main
+bind	^F	whereis 	main
+bind	^N	findnext 	main
+bind	^P	findprevious 	main
+# VARIOUS (nano specific. not CUA)
+bind	M-. 	nextbuf 	main
+bind	M-, 	prevbuf 	main	# visualize it as < >
+bind	^B 	comment 	main
+bind	^/ 	complete 	main
+bind	^U 	unindent 	main
+bind	M-N 	linenumbers	main	# usefull for raw copy-pasting
+bind	M-M 	mouse 		main	# ^M seen as ENTER
+bind	M-P 	whitespacedisplay	main
