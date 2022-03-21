@@ -11,13 +11,13 @@ set	zap		# selected text is deleted with DEL an BKS
 set	guidestripe 81	# chars in the 81st column are highlighted
 set	indicator	# shows a GUI-like scrollbar
 #COLORS
-set	numbercolor	bold,yellow
-set	titlecolor	bold,italic,blue
-set	statuscolor	black,green
-set	keycolor	blue
-set	stripecolor 	bold,magenta
-set	functioncolor	italic,white
-set	scrollercolor	blue
+set	numbercolor   yellow
+set	titlecolor    blue
+set	statuscolor   green
+set	keycolor      blue
+set	stripecolor   magenta
+set	functioncolor	white
+set scroller color  blue
 #MOVEMENT
 bind	^G	gotoline 	main
 bind	^\	findbracket	main
